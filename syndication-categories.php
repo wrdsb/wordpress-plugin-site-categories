@@ -37,9 +37,9 @@ function syndication_categories_taxonomy() {
 		'items_list_navigation'      => 'Categories list navigation',
 	);
 	$capabilities = array(
-		'manage_terms'               => 'manage_categories',
-		'edit_terms'                 => 'manage_categories',
-		'delete_terms'               => 'manage_categories',
+		'manage_terms'               => 'manage_sites',
+		'edit_terms'                 => 'manage_sites',
+		'delete_terms'               => 'manage_sites',
 		'assign_terms'               => 'edit_posts',
 	);
 	$args = array(
