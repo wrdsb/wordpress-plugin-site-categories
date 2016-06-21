@@ -36,6 +36,12 @@ function syndication_categories_taxonomy() {
 		'items_list'                 => 'Categories list',
 		'items_list_navigation'      => 'Categories list navigation',
 	);
+	$capabilities = array(
+		'manage_terms'               => 'manage_categories',
+		'edit_terms'                 => 'manage_categories',
+		'delete_terms'               => 'manage_categories',
+		'assign_terms'               => 'edit_posts',
+	);
 	$args = array(
 		'labels'                     => $labels,
 		'hierarchical'               => true,
@@ -44,6 +50,7 @@ function syndication_categories_taxonomy() {
 		'show_admin_column'          => true,
 		'show_in_nav_menus'          => false,
 		'show_tagcloud'              => false,
+		'capabilities'               => $capabilities,
 	);
 	register_taxonomy( 'syndication_categories', array( 'post', ' page' ), $args );
 
