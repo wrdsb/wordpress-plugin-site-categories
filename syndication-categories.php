@@ -1,4 +1,15 @@
 <?php
+/*
+* Plugin Name: WRDSB Syndication Categories
+* Plugin URI: https://github.com/wrdsb/wordpress-plugin-syndication-categories
+* Description: Categories applied to content to indicate syndication targets
+* Author: WRDSB
+* Author URI: https://github.com/wrdsb
+* Version: 0.0.1
+* License: GNU AGPLv3
+* GitHub Plugin URI: wrdsb/wordpress-plugin-syndication-categories
+* GitHub Branch: master
+*/
 
 // Register Custom Taxonomy
 function syndication_categories_taxonomy() {
