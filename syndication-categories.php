@@ -11,9 +11,38 @@
 * GitHub Branch: master
 */
 
+register_activation_hook(__FILE__, 'activate');
+
+add_action( 'init', 'syndication_categories_taxonomy', 0 );
+
+function activate() {
+	syndication_categories_taxonomy();
+	wp_insert_term('All Schools','syndication_categories',
+		array(
+			'description' => 'All schools',
+			'slug'        => 'schools-all',
+		)
+	);
+	$parent_term = term_exists( 'schools-all', 'syndication_categories' );
+	$parent_term_id = $parent_term['term_id'];
+	wp_insert_term('Elementary Schools','syndication_categories',
+		array(
+			'description' => 'Elementary Schools',
+			'slug'        => 'schools-elementary',
+			'parent'      => $parent_term_id,
+		)
+	);
+	wp_insert_term('Secondary Schools','syndication_categories',
+		array(
+			'description' => 'Secondary Schools',
+			'slug'        => 'schools-secondary',
+			'parent'      => $parent_term_id,
+		)
+	);
+}
+
 // Register Custom Taxonomy
 function syndication_categories_taxonomy() {
-
 	$labels = array(
 		'name'                       => 'Syndication Categories',
 		'singular_name'              => 'Syndication Category',
@@ -53,6 +82,4 @@ function syndication_categories_taxonomy() {
 		'capabilities'               => $capabilities,
 	);
 	register_taxonomy( 'syndication_categories', array( 'post', ' page' ), $args );
-
 }
-add_action( 'init', 'syndication_categories_taxonomy', 0 );
