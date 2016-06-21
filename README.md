@@ -1,2 +1,2 @@
-# wordpress-plugin-site-categories
-Organize sites into categories
+# Syndication Categories
+Categories applied to content to indicate syndication targets
