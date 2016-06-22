@@ -11,12 +11,31 @@
 * GitHub Branch: master
 */
 
-register_activation_hook(__FILE__, 'activate');
+if (!defined('WRDSB_SYNDICATION_CATEGORIES_VERSION'))
+	define('WRDSB_SYNDICATION_CATEGORIES_VERSION', '0.0.1');
 
-add_action( 'init', 'syndication_categories_taxonomy', 0 );
+function wrdsb_syndication_categories_check_version() {
+	if (WRDSB_SYNDICATION_CATEGORIES_VERSION !== get_option('wrdsb_syndication_categories_version'))
+		wrdsb_syndication_categories_activation();
+}
+add_action('plugins_loaded', 'wrdsb_syndication_categories_check_version');
 
-function activate() {
+register_activation_hook(__FILE__, 'wrdsb_syndication_categories_activation');
+
+function wrdsb_syndication_categories_activation() {
 	syndication_categories_taxonomy();
+	wp_insert_term('Staff Intranet','syndication_categories',
+		array(
+			'description' => 'Staff Intranet',
+			'slug'        => 'staff',
+		)
+	);
+	wp_insert_term('WCSSAA','syndication_categories',
+		array(
+			'description' => 'WCSSAA',
+			'slug'        => 'wcssaa',
+		)
+	);
 	wp_insert_term('All Schools','syndication_categories',
 		array(
 			'description' => 'All schools',
@@ -857,6 +876,7 @@ function activate() {
 			'parent'      => $parent_term_id,
 		)
 	);
+	update_option('wrdsb_syndication_categories_version', WRDSB_SYNDICATION_CATEGORIES_VERSION);
 }
 
 // Register Custom Taxonomy
@@ -901,3 +921,4 @@ function syndication_categories_taxonomy() {
 	);
 	register_taxonomy( 'syndication_categories', array( 'post', 'page' ), $args );
 }
+add_action( 'init', 'syndication_categories_taxonomy', 0 );
